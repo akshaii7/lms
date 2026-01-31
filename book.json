@@ -1,0 +1,14 @@
+{
+    "books": [
+        {
+            "name": "scammmmmmmmmmmmmm",
+            "status": "available",
+            "price": "20"
+        },
+        {
+            "name": "power of money",
+            "status": "available",
+            "price": "20"
+        }
+    ]
+}
