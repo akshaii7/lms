@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library Management System</title>
 
     <!-- Google Font -->
@@ -10,8 +11,200 @@
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="style.css">
+    <style>
+        /* ================= BASE ================= */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            display:flex;
+            min-height:100vh;
+            background:#f4f6f9;
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar{
+            width:240px;
+            background:#111827;
+            color:#fff;
+            display:flex;
+            flex-direction:column;
+            position:fixed;
+            height:100vh;
+            left:0;
+            top:0;
+        }
+
+        .logo{
+            padding:20px;
+            font-size:22px;
+            font-weight:600;
+            display:flex;
+            align-items:center;
+            gap:10px;
+            border-bottom:1px solid rgba(255,255,255,0.1);
+        }
+
+        .menu{
+            display:flex;
+            flex-direction:column;
+        }
+
+        .menu a{
+            padding:15px 20px;
+            color:#fff;
+            text-decoration:none;
+            display:flex;
+            align-items:center;
+            gap:12px;
+            cursor:pointer;
+            transition:0.3s;
+        }
+
+        .menu a:hover{
+            background:#1f2937;
+        }
+
+        .logout{
+            margin-top:auto;
+            background:#7f1d1d;
+        }
+
+        /* ================= MAIN ================= */
+        .main{
+            margin-left:240px;
+            padding:25px;
+            width:100%;
+        }
+
+        .main h1{
+            margin-bottom:20px;
+        }
+
+        .card{
+            background:#fff;
+            padding:20px;
+            border-radius:10px;
+            margin-bottom:20px;
+            max-width:450px;
+            box-shadow:0 4px 10px rgba(0,0,0,0.05);
+        }
+
+        .card h3{
+            margin-bottom:15px;
+        }
+
+        .card input{
+            width:100%;
+            padding:12px;
+            margin-bottom:10px;
+            border-radius:6px;
+            border:1px solid #ddd;
+        }
+
+        .btn button{
+            width:100%;
+            padding:12px;
+            background:#2563eb;
+            border:none;
+            color:white;
+            border-radius:6px;
+            cursor:pointer;
+            font-weight:500;
+        }
+
+        .btn button:hover{
+            background:#1d4ed8;
+        }
+
+        /* ================= TABLE ================= */
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        th, td{
+            padding:10px;
+            border:1px solid #ddd;
+            text-align:center;
+        }
+
+        /* ================= MOBILE RESPONSIVE ================= */
+        @media (max-width: 768px){
+
+            body{
+                flex-direction:column;
+            }
+
+            .sidebar{
+                width:100%;
+                height:auto;
+                position:relative;
+                flex-direction:row;
+                align-items:center;
+                overflow-x:auto;
+            }
+
+            .logo{
+                font-size:18px;
+                padding:15px;
+                border-bottom:none;
+                border-right:1px solid rgba(255,255,255,0.1);
+                white-space:nowrap;
+            }
+
+            .menu{
+                flex-direction:row;
+                width:100%;
+            }
+
+            .menu a{
+                padding:12px 15px;
+                font-size:14px;
+                white-space:nowrap;
+            }
+
+            .logout{
+                margin-top:0;
+            }
+
+            .main{
+                margin-left:0;
+                padding:15px;
+            }
+
+            .card{
+                max-width:100%;
+            }
+
+            table, thead, tbody, th, td, tr{
+                display:block;
+                width:100%;
+            }
+
+            thead{
+                display:none;
+            }
+
+            tr{
+                margin-bottom:15px;
+                border:1px solid #ddd;
+                border-radius:8px;
+                padding:10px;
+                background:#fff;
+            }
+
+            td{
+                text-align:left;
+                padding:8px;
+                border:none;
+            }
+        }
+    </style>
 </head>
 
 <body>
@@ -24,30 +217,11 @@
     </div>
 
     <div class="menu">
-        <a onclick="showSection('signup')">
-            <i class="fas fa-user-plus"></i>
-            <span>Signup</span>
-        </a>
-
-        <a onclick="showSection('login')">
-            <i class="fas fa-right-to-bracket"></i>
-            <span>Login</span>
-        </a>
-
-        <a onclick="showSection('addBook')">
-            <i class="fas fa-book-medical"></i>
-            <span>Add Book</span>
-        </a>
-
-        <a onclick="showSection('viewBook')">
-            <i class="fas fa-book-open"></i>
-            <span>View Books</span>
-        </a>
-
-        <a onclick="logout()" class="logout">
-            <i class="fas fa-power-off"></i>
-            <span>Logout</span>
-        </a>
+        <a onclick="showSection('signup')"><i class="fas fa-user-plus"></i><span>Signup</span></a>
+        <a onclick="showSection('login')"><i class="fas fa-right-to-bracket"></i><span>Login</span></a>
+        <a onclick="showSection('addBook')"><i class="fas fa-book-medical"></i><span>Add Book</span></a>
+        <a onclick="showSection('viewBook')"><i class="fas fa-book-open"></i><span>View Books</span></a>
+        <a onclick="logout()" class="logout"><i class="fas fa-power-off"></i><span>Logout</span></a>
     </div>
 </div>
 
@@ -60,49 +234,50 @@
         <h3>Signup</h3>
         <input id="su_user" placeholder="Username">
         <input id="su_pass" type="password" placeholder="Password">
-        <input id="su_pass"type="Gmail" placeholder="Gmail">
-        <input id="su_pass"type='phone' placeholder="phone">
-        <div class="btn">
-            <button onclick="signup()">Signup</button>
-        </div>
+        <input id="su_email" type="email" placeholder="Gmail">
+        <input id="su_phone" type="tel" placeholder="Phone">
+        <div class="btn"><button onclick="signup()">Signup</button></div>
     </div>
 
     <!-- Login -->
-    <div class="card" id="login">
+    <div class="card" id="login" style="display:none;">
         <h3>Login</h3>
         <input id="li_user" placeholder="Username">
         <input id="li_pass" type="password" placeholder="Password">
-        <div class="btn">
-            <button onclick="login()">Login</button>
-        </div>
+        <div class="btn"><button onclick="login()">Login</button></div>
     </div>
 
     <!-- Add Book -->
-    <div class="card" id="addBook">
+    <div class="card" id="addBook" style="display:none;">
         <h3>Add Book</h3>
         <input id="book_name" placeholder="Book Name">
         <input id="book_price" placeholder="Price">
-        <div class="btn">
-            <button onclick="addBook()">Add</button>
-        </div>
+        <div class="btn"><button onclick="addBook()">Add</button></div>
     </div>
 
     <!-- View Books -->
-    <div class="card" id="viewBook">
+    <div class="card" id="viewBook" style="display:none;">
         <h3>View Books</h3>
         <table>
             <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                </tr>
+                <tr><th>Name</th><th>Status</th><th>Price</th></tr>
             </thead>
             <tbody id="bookTable"></tbody>
         </table>
     </div>
 </div>
 
-<script src="script.js"></script>
+<script>
+function showSection(id){
+    document.querySelectorAll('.card').forEach(c=>c.style.display='none');
+    document.getElementById(id).style.display='block';
+}
+
+function signup(){ alert('Signup logic here'); }
+function login(){ alert('Login logic here'); }
+function addBook(){ alert('Add book logic here'); }
+function logout(){ alert('Logout logic here'); }
+</script>
+
 </body>
 </html>

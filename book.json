@@ -9,6 +9,11 @@
             "name": "power of money",
             "status": "available",
             "price": "20"
+        },
+        {
+            "name": "teady",
+            "status": "available",
+            "price": "20"
         }
     ]
 }
