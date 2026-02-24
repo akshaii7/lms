@@ -1,108 +1,515 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Library Management System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="BookVault – Professional Library Management System. Manage books, members and more.">
+    <title>BookVault – Library Management</title>
 
-    <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
 
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Remix Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css" rel="stylesheet">
 
-    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- Sidebar -->
-<div class="sidebar">
-    <div class="logo">
-        <i class="fas fa-book-reader"></i>
-        <span>Library</span>
-    </div>
+    <!-- ── ORBS (background decoration) ── -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
 
-    <div class="menu">
-        <a onclick="showSection('signup')">
-            <i class="fas fa-user-plus"></i>
-            <span>Signup</span>
-        </a>
+    <!-- ══════════════════════════════════════
+     SIDEBAR
+══════════════════════════════════════ -->
+    <aside class="sidebar" id="sidebar">
 
-        <a onclick="showSection('login')">
-            <i class="fas fa-right-to-bracket"></i>
-            <span>Login</span>
-        </a>
-
-        <a onclick="showSection('addBook')">
-            <i class="fas fa-book-medical"></i>
-            <span>Add Book</span>
-        </a>
-
-        <a onclick="showSection('viewBook')">
-            <i class="fas fa-book-open"></i>
-            <span>View Books</span>
-        </a>
-
-        <a onclick="logout()" class="logout">
-            <i class="fas fa-power-off"></i>
-            <span>Logout</span>
-        </a>
-    </div>
-</div>
-
-<!-- Main Content -->
-<div class="main">
-    <h1>Library Management System</h1>
-
-    <!-- Signup -->
-    <div class="card" id="signup">
-        <h3>Signup</h3>
-        <input id="su_user" placeholder="Username">
-        <input id="su_pass" type="password" placeholder="Password">
-        <input id="su_pass"type="Gmail" placeholder="Gmail">
-        <input id="su_pass"type='phone' placeholder="phone">
-        <div class="btn">
-            <button onclick="signup()">Signup</button>
+        <!-- Brand -->
+        <div class="brand">
+            <div class="brand-logo">
+                <i class="ri-book-shelf-line"></i>
+            </div>
+            <div class="brand-name">
+                <span class="brand-title">BookVault</span>
+                <span class="brand-ver">v2.0 Pro</span>
+            </div>
         </div>
-    </div>
 
-    <!-- Login -->
-    <div class="card" id="login">
-        <h3>Login</h3>
-        <input id="li_user" placeholder="Username">
-        <input id="li_pass" type="password" placeholder="Password">
-        <div class="btn">
-            <button onclick="login()">Login</button>
+        <!-- Profile card -->
+        <div class="profile-card" id="profileCard">
+            <div class="profile-avatar" id="profileAvatar">
+                <i class="ri-user-3-line"></i>
+            </div>
+            <div class="profile-info">
+                <span class="profile-name" id="profileName">Guest User</span>
+                <span class="profile-status">
+                    <span class="dot" id="statusDot"></span>
+                    <span id="statusText">Offline</span>
+                </span>
+            </div>
         </div>
-    </div>
 
-    <!-- Add Book -->
-    <div class="card" id="addBook">
-        <h3>Add Book</h3>
-        <input id="book_name" placeholder="Book Name">
-        <input id="book_price" placeholder="Price">
-        <div class="btn">
-            <button onclick="addBook()">Add</button>
+        <!-- Nav -->
+        <nav class="nav">
+            <div class="nav-group-label">MENU</div>
+
+            <button class="nav-btn active" id="nb-signup" onclick="showSection('signup')">
+                <span class="nb-icon"><i class="ri-user-add-line"></i></span>
+                <span class="nb-label">Sign Up</span>
+                <span class="nb-arrow"><i class="ri-arrow-right-s-line"></i></span>
+            </button>
+
+            <button class="nav-btn" id="nb-login" onclick="showSection('login')">
+                <span class="nb-icon"><i class="ri-login-circle-line"></i></span>
+                <span class="nb-label">Login</span>
+                <span class="nb-arrow"><i class="ri-arrow-right-s-line"></i></span>
+            </button>
+
+            <div class="nav-group-label">LIBRARY</div>
+
+            <button class="nav-btn" id="nb-dashboard" onclick="showSection('dashboard')">
+                <span class="nb-icon"><i class="ri-dashboard-3-line"></i></span>
+                <span class="nb-label">Dashboard</span>
+                <span class="nb-arrow"><i class="ri-arrow-right-s-line"></i></span>
+            </button>
+
+            <button class="nav-btn" id="nb-addBook" onclick="showSection('addBook')">
+                <span class="nb-icon"><i class="ri-add-circle-line"></i></span>
+                <span class="nb-label">Add Book</span>
+                <span class="nb-arrow"><i class="ri-arrow-right-s-line"></i></span>
+            </button>
+
+            <button class="nav-btn" id="nb-viewBook" onclick="showSection('viewBook')">
+                <span class="nb-icon"><i class="ri-book-2-line"></i></span>
+                <span class="nb-label">All Books</span>
+                <span class="nb-pill" id="pillCount">0</span>
+            </button>
+
+            <button class="nav-btn" id="nb-search" onclick="showSection('search')">
+                <span class="nb-icon"><i class="ri-search-line"></i></span>
+                <span class="nb-label">Search</span>
+                <span class="nb-arrow"><i class="ri-arrow-right-s-line"></i></span>
+            </button>
+
+            <div class="nav-spacer"></div>
+
+            <button class="nav-btn logout-btn" onclick="logout()">
+                <span class="nb-icon"><i class="ri-logout-box-r-line"></i></span>
+                <span class="nb-label">Logout</span>
+            </button>
+        </nav>
+
+        <!-- Sidebar Footer -->
+        <div class="sidebar-bottom">
+            <div class="sb-stat">
+                <i class="ri-database-2-line"></i>
+                <span><b id="sbTotal">0</b> books stored</span>
+            </div>
         </div>
-    </div>
+    </aside>
 
-    <!-- View Books -->
-    <div class="card" id="viewBook">
-        <h3>View Books</h3>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Status</th>
-                    <th>Price</th>
-                </tr>
-            </thead>
-            <tbody id="bookTable"></tbody>
-        </table>
-    </div>
-</div>
+    <!-- ══════════════════════════════════════
+     MAIN CONTENT
+══════════════════════════════════════ -->
+    <div class="main" id="mainWrap">
 
-<script src="script.js"></script>
+        <!-- TOP HEADER -->
+        <header class="topbar">
+            <div class="topbar-left">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="ri-menu-line"></i>
+                </button>
+                <div class="breadcrumb">
+                    <span class="bc-root">BookVault</span>
+                    <i class="ri-arrow-right-s-line"></i>
+                    <span class="bc-page" id="bcPage">Sign Up</span>
+                </div>
+            </div>
+            <div class="topbar-right">
+                <div class="tb-time" id="tbTime">—</div>
+                <div class="tb-books-chip">
+                    <i class="ri-book-line"></i>
+                    <span id="topTotal">0</span> Books
+                </div>
+                <div class="tb-user-chip" id="tbUserChip">
+                    <i class="ri-user-line"></i>
+                    <span id="tbUserName">Guest</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- TOASTS -->
+        <div class="toast-box" id="toastBox"></div>
+
+        <!-- ────────────────────────────────────
+         SIGN UP SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="signup">
+            <div class="page-split">
+                <!-- Left panel -->
+                <div class="page-left auth-left">
+                    <div class="auth-brand-mark">
+                        <i class="ri-book-shelf-line"></i>
+                    </div>
+                    <h1>Start your<br><span class="grad-text">library journey</span></h1>
+                    <p class="subtitle">Create an account and manage your book collection professionally.</p>
+                    <ul class="feature-list">
+                        <li><i class="ri-check-double-line"></i> Store unlimited books</li>
+                        <li><i class="ri-check-double-line"></i> Track borrow status</li>
+                        <li><i class="ri-check-double-line"></i> Instant search</li>
+                        <li><i class="ri-check-double-line"></i> Secure local storage</li>
+                    </ul>
+                </div>
+
+                <!-- Right panel -->
+                <div class="page-right">
+                    <div class="form-box">
+                        <div class="form-head">
+                            <h2>Create Account</h2>
+                            <p>Fill in the details below to get started</p>
+                        </div>
+
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="su_user"><i class="ri-user-line"></i> Username</label>
+                                <input type="text" id="su_user" placeholder="e.g. johndoe">
+                            </div>
+                            <div class="field">
+                                <label for="su_email"><i class="ri-mail-line"></i> Email</label>
+                                <input type="email" id="su_email" placeholder="you@email.com">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="su_phone"><i class="ri-phone-line"></i> Phone</label>
+                                <input type="tel" id="su_phone" placeholder="+91 98765 43210">
+                            </div>
+                            <div class="field">
+                                <label for="su_pass"><i class="ri-lock-password-line"></i> Password</label>
+                                <div class="input-icon-wrap">
+                                    <input type="password" id="su_pass" placeholder="Min 4 characters">
+                                    <button class="toggle-pass" onclick="togglePass('su_pass',this)"><i
+                                            class="ri-eye-line"></i></button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <button class="cta-btn" onclick="signup()">
+                            <i class="ri-user-add-line"></i> Create Account
+                            <span class="btn-shine"></span>
+                        </button>
+                        <p class="form-switch">Already have an account? <a onclick="showSection('login')">Login →</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────
+         LOGIN SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="login">
+            <div class="page-split">
+                <div class="page-left auth-left login-left">
+                    <div class="auth-brand-mark amber">
+                        <i class="ri-shield-keyhole-line"></i>
+                    </div>
+                    <h1>Welcome<br><span class="grad-text amber-grad">back!</span></h1>
+                    <p class="subtitle">Sign in to your account and continue managing your library collection.</p>
+                    <div class="login-art">
+                        <div class="book-stack">
+                            <div class="bs-book b1"></div>
+                            <div class="bs-book b2"></div>
+                            <div class="bs-book b3"></div>
+                            <div class="bs-book b4"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="page-right">
+                    <div class="form-box">
+                        <div class="form-head">
+                            <h2>Sign In</h2>
+                            <p>Enter your credentials to continue</p>
+                        </div>
+                        <div class="field">
+                            <label for="li_user"><i class="ri-user-line"></i> Username</label>
+                            <input type="text" id="li_user" placeholder="Your username">
+                        </div>
+                        <div class="field">
+                            <label for="li_pass"><i class="ri-lock-password-line"></i> Password</label>
+                            <div class="input-icon-wrap">
+                                <input type="password" id="li_pass" placeholder="Your password">
+                                <button class="toggle-pass" onclick="togglePass('li_pass',this)"><i
+                                        class="ri-eye-line"></i></button>
+                            </div>
+                        </div>
+                        <button class="cta-btn amber-btn" onclick="login()">
+                            <i class="ri-login-circle-line"></i> Login to Dashboard
+                            <span class="btn-shine"></span>
+                        </button>
+                        <p class="form-switch">New here? <a onclick="showSection('signup')">Create account →</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────
+         DASHBOARD SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="dashboard">
+            <div class="page-inner">
+                <div class="section-title-row">
+                    <div>
+                        <h2 class="section-h2">Dashboard</h2>
+                        <p class="section-sub">Your library at a glance</p>
+                    </div>
+                    <button class="cta-btn sm-btn" onclick="showSection('addBook')">
+                        <i class="ri-add-line"></i> Add Book
+                    </button>
+                </div>
+
+                <!-- Stat Cards -->
+                <div class="stat-grid">
+                    <div class="stat-card s-blue">
+                        <div class="sc-icon"><i class="ri-book-2-line"></i></div>
+                        <div class="sc-data">
+                            <span class="sc-num" id="d-total">0</span>
+                            <span class="sc-label">Total Books</span>
+                        </div>
+                        <div class="sc-ring"></div>
+                    </div>
+                    <div class="stat-card s-green">
+                        <div class="sc-icon"><i class="ri-checkbox-circle-line"></i></div>
+                        <div class="sc-data">
+                            <span class="sc-num" id="d-avail">0</span>
+                            <span class="sc-label">Available</span>
+                        </div>
+                        <div class="sc-ring"></div>
+                    </div>
+                    <div class="stat-card s-amber">
+                        <div class="sc-icon"><i class="ri-time-line"></i></div>
+                        <div class="sc-data">
+                            <span class="sc-num" id="d-borrow">0</span>
+                            <span class="sc-label">Borrowed</span>
+                        </div>
+                        <div class="sc-ring"></div>
+                    </div>
+                    <div class="stat-card s-rose">
+                        <div class="sc-icon"><i class="ri-price-tag-3-line"></i></div>
+                        <div class="sc-data">
+                            <span class="sc-num" id="d-value">₹0</span>
+                            <span class="sc-label">Total Value</span>
+                        </div>
+                        <div class="sc-ring"></div>
+                    </div>
+                </div>
+
+                <!-- Recent Books -->
+                <div class="panel">
+                    <div class="panel-head">
+                        <h3><i class="ri-history-line"></i> Recently Added</h3>
+                        <button class="link-btn" onclick="showSection('viewBook')">View all →</button>
+                    </div>
+                    <div id="recentBooks" class="recent-list"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────
+         ADD BOOK SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="addBook">
+            <div class="page-inner">
+                <div class="section-title-row">
+                    <div>
+                        <h2 class="section-h2">Add New Book</h2>
+                        <p class="section-sub">Add a title to your library collection</p>
+                    </div>
+                </div>
+                <div class="two-col-layout">
+                    <!-- Form -->
+                    <div class="panel form-panel">
+                        <div class="panel-head">
+                            <h3><i class="ri-quill-pen-line"></i> Book Details</h3>
+                        </div>
+                        <div class="field">
+                            <label for="book_name"><i class="ri-book-open-line"></i> Book Title *</label>
+                            <input type="text" id="book_name" placeholder="Enter full title">
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="book_author"><i class="ri-user-star-line"></i> Author</label>
+                                <input type="text" id="book_author" placeholder="Author name">
+                            </div>
+                            <div class="field">
+                                <label for="book_isbn"><i class="ri-barcode-line"></i> ISBN</label>
+                                <input type="text" id="book_isbn" placeholder="e.g. 978-3-16-148410-0">
+                            </div>
+                        </div>
+                        <div class="field-row">
+                            <div class="field">
+                                <label for="book_genre"><i class="ri-price-tag-3-line"></i> Genre</label>
+                                <select id="book_genre">
+                                    <option value="">Select genre</option>
+                                    <option>Fiction</option>
+                                    <option>Non-Fiction</option>
+                                    <option>Science</option>
+                                    <option>Technology</option>
+                                    <option>History</option>
+                                    <option>Biography</option>
+                                    <option>Self-Help</option>
+                                    <option>Philosophy</option>
+                                    <option>Other</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label for="book_price"><i class="ri-currency-line"></i> Price (₹) *</label>
+                                <input type="number" id="book_price" placeholder="0.00" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label for="book_desc"><i class="ri-file-text-line"></i> Description</label>
+                            <textarea id="book_desc" rows="3" placeholder="Brief description of the book..."></textarea>
+                        </div>
+                        <button class="cta-btn" style="width:100%;margin-top:6px" onclick="addBook()">
+                            <i class="ri-add-circle-line"></i> Add to Library
+                            <span class="btn-shine"></span>
+                        </button>
+                    </div>
+
+                    <!-- Tips -->
+                    <div class="tips-panel">
+                        <div class="panel tips-card">
+                            <div class="panel-head">
+                                <h3><i class="ri-lightbulb-line"></i> Tips</h3>
+                            </div>
+                            <ul class="tips-list">
+                                <li><i class="ri-star-line"></i> Use the full book title for better search results</li>
+                                <li><i class="ri-star-line"></i> ISBN helps uniquely identify each book</li>
+                                <li><i class="ri-star-line"></i> Genre filter works in the All Books view</li>
+                                <li><i class="ri-star-line"></i> Price is stored in Indian Rupees (₹)</li>
+                            </ul>
+                        </div>
+                        <div class="panel add-preview" id="addPreview">
+                            <div class="preview-icon"><i class="ri-book-2-line"></i></div>
+                            <p>Fill the form to preview your book card</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────
+         VIEW BOOKS SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="viewBook">
+            <div class="page-inner">
+                <div class="section-title-row">
+                    <div>
+                        <h2 class="section-h2">All Books</h2>
+                        <p class="section-sub">Browse and manage your full collection</p>
+                    </div>
+                    <button class="cta-btn sm-btn" onclick="showSection('addBook')">
+                        <i class="ri-add-line"></i> Add Book
+                    </button>
+                </div>
+
+                <!-- Filter Bar -->
+                <div class="filter-bar">
+                    <div class="search-input-wrap">
+                        <i class="ri-search-line"></i>
+                        <input type="text" id="filterQ" placeholder="Search by title or author…"
+                            oninput="filterBooks()">
+                    </div>
+                    <select id="filterGenre" onchange="filterBooks()">
+                        <option value="">All Genres</option>
+                        <option>Fiction</option>
+                        <option>Non-Fiction</option>
+                        <option>Science</option>
+                        <option>Technology</option>
+                        <option>History</option>
+                        <option>Biography</option>
+                        <option>Self-Help</option>
+                        <option>Philosophy</option>
+                        <option>Other</option>
+                    </select>
+                    <select id="filterStatus" onchange="filterBooks()">
+                        <option value="">All Status</option>
+                        <option value="available">Available</option>
+                        <option value="borrowed">Borrowed</option>
+                    </select>
+                    <button class="ghost-btn" onclick="clearFilters()"><i class="ri-refresh-line"></i> Reset</button>
+                </div>
+
+                <!-- Stats row -->
+                <div class="mini-stats" id="miniStatsRow">
+                    <span class="ms-chip"><i class="ri-book-2-line"></i> Total: <b id="ms-total">0</b></span>
+                    <span class="ms-chip green-chip"><i class="ri-checkbox-circle-line"></i> Available: <b
+                            id="ms-avail">0</b></span>
+                    <span class="ms-chip amber-chip"><i class="ri-time-line"></i> Borrowed: <b
+                            id="ms-borrow">0</b></span>
+                </div>
+
+                <!-- Table -->
+                <div class="panel table-panel">
+                    <div class="table-scroll">
+                        <table id="bookTable">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Genre</th>
+                                    <th>Price</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="bookTableBody"></tbody>
+                        </table>
+                    </div>
+                    <div class="empty-wrap" id="emptyWrap">
+                        <div class="empty-icon"><i class="ri-inbox-unarchive-line"></i></div>
+                        <h4>No Books Found</h4>
+                        <p>Add your first book to get started.</p>
+                        <button class="cta-btn sm-btn" onclick="showSection('addBook')"><i class="ri-add-line"></i> Add
+                            Book</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ────────────────────────────────────
+         SEARCH SECTION
+    ──────────────────────────────────── -->
+        <section class="page" id="search">
+            <div class="page-inner">
+                <div class="section-title-row">
+                    <div>
+                        <h2 class="section-h2">Search Books</h2>
+                        <p class="section-sub">Find any book instantly from your collection</p>
+                    </div>
+                </div>
+                <div class="big-search-wrap">
+                    <div class="big-search">
+                        <i class="ri-search-2-line"></i>
+                        <input type="text" id="bigSearchQ" placeholder="Type a title, author or genre…"
+                            oninput="liveSearch()">
+                    </div>
+                </div>
+                <div id="searchOut" class="search-out"></div>
+            </div>
+        </section>
+
+    </div><!-- /main -->
+
+    <script src="script.js"></script>
 </body>
+
 </html>

@@ -13,7 +13,10 @@ def load_books():
         
         
         # Automatically create the JSON file
+        
+        
         data = {"books": []}
+        
         
         
         
